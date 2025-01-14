@@ -4,6 +4,7 @@ import StudentList from './components/StudentList';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Profile from './components/Profile';
+import Add from './components/AddStudent';
 
 export default function App() {
   const Stack=createNativeStackNavigator();
@@ -13,6 +14,7 @@ export default function App() {
         <Stack.Navigator>
           <Stack.Screen name='StudentList' component={StudentList}/>
           <Stack.Screen name='Profile' component={Profile}/>
+          <Stack.Screen name='Add' component={Add}/>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
