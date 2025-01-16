@@ -1,41 +1,42 @@
-import { FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
-import { students } from './StudentDb';
-import {useNavigation} from '@react-navigation/native';
-import {useState} from 'react'
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Text, TextInput, Button } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 export default function AddStudent() {
+    const [name, setName] = useState('');
+    const navigation = useNavigation();
 
-    const [name,setName]=useState();
-    const newStudent={
-        name:name,
-        id:'001',
-        age:'22' 
-    }
+    const newStudent = {
+        name: name,
+        id: '001',
+        age: '22'
+    };
+
     return (
         <View style={styles.container}>
-            <TextInput mode='outlined' label='Name' value={name} onChangeText={setName} />
-            <Button onPress={()=>{
-                NavigationPreloadManager.popTo('StudentList',{newStudent})
-            }} >Add</Button>
+            <TextInput
+                mode='outlined'
+                label='Name'
+                value={name}
+                onChangeText={setName}
+            />
+            <Button
+                mode="contained"
+                onPress={() => {
+                    navigation.navigate('StudentList', { newStudent });
+                }}
+            >
+                Add Student
+            </Button>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    text: {
-        fontSize: 18,
-        color: 'white',
-        backgroundColor:'purple',
-        padding: 5,
-        margin:3,
-        width:'100%'
-    },
     container: {
-        width:'100%',
         flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
         justifyContent: 'center',
+        padding: 20,
     },
 });
