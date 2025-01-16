@@ -8,10 +8,12 @@ import { useNavigation } from '@react-navigation/native';
 export default function StudentList({route}) {
     const navigation=useNavigation();
     const [studentList,setList]=useState(students);
+    const [rerender,setRender]=useState(false);
     useEffect(()=>{
         if(route.params?.newStudent){
             const {newStudent}=route.params;
             setList((pre)=>[...pre,{...newStudent}]);
+            setRender(!rerender)
         }
     },[route.params?.newStudent]);
     return (
@@ -19,13 +21,14 @@ export default function StudentList({route}) {
             <FlatList 
                 data={studentList}
                 keyExtractor={item => item.id.toString()}
+                extraData={rerender}
                 renderItem={({ item }) => 
                 <TouchableOpacity onPress={()=>navigation.navigate('Profile',{student:item})}>
                 <Text style={styles.text}>{item.name}</Text>
                 </TouchableOpacity>
             }
             />
-            <Button mode='contained' onPress={navigation.navigate('Add')}>Add Student</Button>
+           <TouchableOpacity onPress={()=>navigation.navigate('Add')}>Add student</TouchableOpacity>
         </View>
     );
 }
